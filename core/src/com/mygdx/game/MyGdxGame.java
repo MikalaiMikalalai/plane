@@ -71,6 +71,15 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		
 		currentFrame = currentAnimation.getKeyFrame(stateTime, true); 
 		batch.begin();
+		
+		if (Gdx.input.isKeyPressed(Keys.A)) {
+			currentAnimation = runningAnimation;
+			positionX -= 300f * Gdx.graphics.getDeltaTime();
+		}
+		else if (Gdx.input.isKeyPressed(Keys.D)) {
+			currentAnimation = runningAnimation;
+			positionX += 300f * Gdx.graphics.getDeltaTime();
+		}
 		batch.draw(currentFrame, positionX, 0);
 		batch.end();
 	}
@@ -78,27 +87,27 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
-		switch(keycode){
-		case Keys.A: currentAnimation = runningAnimation;
-					 positionX -= 200f * Gdx.graphics.getDeltaTime();
-					 break;
-		case Keys.D: currentAnimation = runningAnimation;
-		 			 positionX += 200f * Gdx.graphics.getDeltaTime();
-		 			 break;
-		case Keys.SPACE: currentAnimation = jumpingAnimation;
-					 break;
-		case Keys.CONTROL_LEFT:
-		case Keys.CONTROL_RIGHT: currentAnimation = kickAnimation;
-					 break;
-		 			 
-		}
+//		switch(keycode){
+//		case Keys.A: currentAnimation = runningAnimation;
+//					 positionX -= 200f * Gdx.graphics.getDeltaTime();
+//					 break;
+//		case Keys.D: currentAnimation = runningAnimation;
+//		 			 positionX += 200f * Gdx.graphics.getDeltaTime();
+//		 			 break;
+//		case Keys.SPACE: currentAnimation = jumpingAnimation;
+//					 break;
+//		case Keys.CONTROL_LEFT:
+//		case Keys.CONTROL_RIGHT: currentAnimation = kickAnimation;
+//					 break;
+//		 			 
+//		}
 		return true;
 	}
 
 	@Override
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
-		currentAnimation = standingAnimation;		
+//		currentAnimation = standingAnimation;		
 		return false;
 	}
 
