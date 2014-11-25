@@ -22,12 +22,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	private Animation runningAnimation;
 	private float positionX;
 	private float positionY;
+	private TextureRegion[][] regions;
 	
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture(Gdx.files.internal("hero_sprites.png"));
-		TextureRegion[][] regions = new TextureRegion(img).split(img.getWidth()/6, img.getHeight()/4);
+		regions = new TextureRegion(img).split(img.getWidth()/6, img.getHeight()/4);
 		TextureRegion[] standingAnimationRegion = new TextureRegion[5];
 		
 		for(int i = 0; i<5; i++){
@@ -74,7 +75,12 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		batch.draw(currentFrame, positionX, 0);
 		batch.end();
 	}
-
+	@Override
+	public void dispose() {
+		img.dispose();
+		batch.dispose();		
+	};
+	
 	@Override
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
