@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
-public class GameClass {
+public class GameCharacter {
 	public Rectangle drawRectangle;
 
 	public void init(String sprite, Vector2 position) {
@@ -21,16 +21,15 @@ public class GameClass {
 	public void dispose() {
 		
 	}
-	public Animation createAnimation(TextureRegion[][] regions, int animationRowNumber, int numberOfFrames, Direction direction) {		
+	public Animation createAnimation(TextureRegion[][] regions, int animationRowNumber, int numberOfFrames) {		
 		TextureRegion[] animationRegion = new TextureRegion[numberOfFrames];		
 		for (int i = 0; i < numberOfFrames; i++) {
-			animationRegion[i] = regions[animationRowNumber][i];
-			if (direction == Direction.Left) animationRegion[i].flip(true, false);
+			animationRegion[i] = regions[animationRowNumber][i];			
 		}
-		Animation animation = new Animation(0.100f, animationRegion);
-		
+		Animation animation = new Animation(0.100f, animationRegion);		
 		return animation;		
 	}
-	
-	public enum Direction { Right, Left};
+	public enum Direction {
+		Left, Right
+	}
 }

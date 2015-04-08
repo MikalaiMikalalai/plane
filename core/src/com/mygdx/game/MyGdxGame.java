@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
+import com.mygdx.game.GameCharacter.Direction;
 
 public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	
@@ -18,14 +19,13 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	private float positionX;
 	private float positionY;
 	private TextureRegion[][] regions;
-	private Hero myHero;
+	private Hero myHero;	
 	
 	@Override
 	public void create () {
 		spriteBatch = new SpriteBatch();
 		myHero = new Hero();
-		myHero.init("hero_sprites.png", new Vector2(0, 0));
-		
+		myHero.init("hero_sprites.png", new Vector2(0, 0));		
 		Gdx.input.setInputProcessor(this);
 		ellapsedGameTime = 0f;
 	}
