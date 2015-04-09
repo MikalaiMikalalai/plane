@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -37,8 +38,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 
 	@Override
 	public void update(int deltaTime) {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 		drawRectangle.x = body.getPosition().x;
 		drawRectangle.y = body.getPosition().y;
 	}
@@ -46,6 +46,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 	@Override
 	public void draw(SpriteBatch spriteBatch, float ellapsedGameTime) {
 		// TODO Auto-generated method stub
+		
 		currentFrame = currentAnimation.getKeyFrame(ellapsedGameTime, true);
 		if (direction == Direction.Right) {
 			spriteBatch.draw(currentFrame,
@@ -57,7 +58,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 					drawRectangle.getWidth(),
 					drawRectangle.getHeight());
 		}
-
+		if (currentAnimation.isAnimationFinished(ellapsedGameTime) && currentAnimation.getPlayMode() == PlayMode.NORMAL) currentAnimation = standAnimation;
 	}
 
 	private void createAnimations(String spriteName) {
@@ -69,15 +70,19 @@ public class Hero extends GameCharacter implements InputProcessor{
 
 		// Create animations for hero standing
 		standAnimation = createAnimation(regions, 0, 5);
+		standAnimation.setPlayMode(PlayMode.LOOP);
 
 		// Create animations for hero jumping
 		jumpAnimation = createAnimation(regions, 1, 5);
-
+		jumpAnimation.setPlayMode(PlayMode.NORMAL);
+		
 		// Create animation for hero running
 		runAnimation = createAnimation(regions, 2, 6);
-
+		runAnimation.setPlayMode(PlayMode.LOOP);
+		
 		// Create animation for hero kicking
 		punchAnimation = createAnimation(regions, 3, 5);
+		punchAnimation.setPlayMode(PlayMode.NORMAL);
 	}
 
 	@Override
@@ -109,6 +114,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 		 break;
 		 case Keys.CONTROL_LEFT:
 		 case Keys.CONTROL_RIGHT: 
+			 currentAnimation = punchAnimation;
 		 break;		
 		 }
 		return true;
