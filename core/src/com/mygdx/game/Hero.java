@@ -93,6 +93,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 		 direction = Direction.Right;
 		 break;
 		 case Keys.SPACE: body.applyForceToCenter(new Vector2(0f, 5f), true);
+		 currentAnimation = jumpAnimation;
 		 break;	
 		 }
 		return true;
@@ -104,6 +105,7 @@ public class Hero extends GameCharacter implements InputProcessor{
 		switch(keycode){
 		 case Keys.A: 			 
 		 case Keys.D: body.setLinearVelocity(new Vector2().setZero());
+		 currentAnimation = standAnimation;
 		 break;
 		 case Keys.CONTROL_LEFT:
 		 case Keys.CONTROL_RIGHT: 
