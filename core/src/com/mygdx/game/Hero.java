@@ -42,7 +42,8 @@ public class Hero extends GameCharacter {
 	@Override
 	public void update(int deltaTime) {
 		// TODO Auto-generated method stub
-
+		drawRectangle.x = body.getPosition().x;
+		drawRectangle.y = body.getPosition().y;
 	}
 
 	@Override
