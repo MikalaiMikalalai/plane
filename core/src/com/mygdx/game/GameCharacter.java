@@ -14,33 +14,37 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class GameCharacter {
-	
+
 	public Rectangle drawRectangle;
 	public World world;
 	public Body body;
-	
+
 	public void init(String sprite, Vector2 position, World world) {
 	}
 
 	public void update(int deltaTime) {
 	}
 
-	public void draw(SpriteBatch spriteBatch,float ellapsedGameTime) {
+	public void draw(SpriteBatch spriteBatch, float ellapsedGameTime) {
 
 	}
+
 	public void dispose() {
-		
+
 	}
-	public Animation createAnimation(TextureRegion[][] regions, int animationRowNumber, int numberOfFrames) {		
-		TextureRegion[] animationRegion = new TextureRegion[numberOfFrames];		
+
+	public Animation createAnimation(TextureRegion[][] regions,
+			int animationRowNumber, int numberOfFrames) {
+		TextureRegion[] animationRegion = new TextureRegion[numberOfFrames];
 		for (int i = 0; i < numberOfFrames; i++) {
-			animationRegion[i] = regions[animationRowNumber][i];			
+			animationRegion[i] = regions[animationRowNumber][i];
 		}
-		Animation animation = new Animation(0.100f, animationRegion);		
-		return animation;		
+		Animation animation = new Animation(0.100f, animationRegion);
+		return animation;
 	}
-	
-	public Body createBody(BodyType bodyType, Vector2 bodyPosition, float width, float height) {
+
+	public Body createBody(BodyType bodyType, Vector2 bodyPosition,
+			float width, float height) {
 		BodyDef bodyDef = new BodyDef();
 		bodyDef.type = BodyDef.BodyType.DynamicBody;
 		bodyDef.position.set(bodyPosition);
@@ -52,9 +56,9 @@ public class GameCharacter {
 		fixtureDef.density = 1f;
 		Fixture fixture = body.createFixture(fixtureDef);
 		shape.dispose();
-		return body;		
+		return body;
 	}
-	
+
 	public enum Direction {
 		Left, Right
 	}

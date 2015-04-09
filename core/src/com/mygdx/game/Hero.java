@@ -13,8 +13,7 @@ import com.badlogic.gdx.physics.box2d.World;
 public class Hero extends GameCharacter {
 
 	private Texture sprite;
-	private Animation currentAnimation,
-			standAnimation, jumpAnimation,
+	private Animation currentAnimation, standAnimation, jumpAnimation,
 			runAnimation, punchAnimation;
 	private TextureRegion[][] regions;
 	private TextureRegion currentFrame;
@@ -25,7 +24,8 @@ public class Hero extends GameCharacter {
 		// TODO Auto-generated method stub
 		drawRectangle = new Rectangle();
 		super.world = world;
-		super.body = createBody(BodyDef.BodyType.DynamicBody, new Vector2().setZero(), 1f, 1.7f);
+		super.body = createBody(BodyDef.BodyType.DynamicBody,
+				new Vector2().setZero(), 1f, 1.7f);
 		createAnimations(spriteName);
 		direction = Direction.Right;
 		currentAnimation = standAnimation;
@@ -52,14 +52,17 @@ public class Hero extends GameCharacter {
 		currentFrame = currentAnimation.getKeyFrame(ellapsedGameTime, true);
 		if (direction == Direction.Right) {
 			spriteBatch.draw(currentFrame,
-					drawRectangle.x + currentFrame.getRegionWidth(), drawRectangle.y, -currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+					drawRectangle.x + currentFrame.getRegionWidth(),
+					drawRectangle.y, -currentFrame.getRegionWidth(),
+					currentFrame.getRegionHeight());
 		} else {
-			spriteBatch.draw(currentFrame,
-					drawRectangle.x, drawRectangle.y, currentFrame.getRegionWidth(), currentFrame.getRegionHeight());
+			spriteBatch.draw(currentFrame, drawRectangle.x, drawRectangle.y,
+					currentFrame.getRegionWidth(),
+					currentFrame.getRegionHeight());
 		}
-		
+
 	}
-	
+
 	private void createAnimations(String spriteName) {
 		// Load sprite with animation
 		sprite = new Texture(Gdx.files.internal(spriteName));
@@ -68,16 +71,16 @@ public class Hero extends GameCharacter {
 				sprite.getHeight() / 4);
 
 		// Create animations for hero standing
-		standAnimation = createAnimation(regions, 0, 5);		
+		standAnimation = createAnimation(regions, 0, 5);
 
 		// Create animations for hero jumping
 		jumpAnimation = createAnimation(regions, 1, 5);
-		
+
 		// Create animation for hero running
-		runAnimation = createAnimation(regions, 2, 6);		
+		runAnimation = createAnimation(regions, 2, 6);
 
 		// Create animation for hero kicking
 		punchAnimation = createAnimation(regions, 3, 5);
 	}
-	
+
 }
