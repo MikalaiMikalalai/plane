@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.World;
 
 public class Hero extends GameCharacter {
 
@@ -19,9 +21,11 @@ public class Hero extends GameCharacter {
 	private Direction direction;
 
 	@Override
-	public void init(String spriteName, Vector2 position) {
+	public void init(String spriteName, Vector2 position, World world) {
 		// TODO Auto-generated method stub
 		drawRectangle = new Rectangle();
+		super.world = world;
+		super.body = createBody(BodyDef.BodyType.DynamicBody, new Vector2().setZero(), 1f, 1.7f);
 		createAnimations(spriteName);
 		direction = Direction.Right;
 		currentAnimation = standAnimation;
@@ -74,5 +78,5 @@ public class Hero extends GameCharacter {
 		// Create animation for hero kicking
 		punchAnimation = createAnimation(regions, 3, 5);
 	}
-
+	
 }
