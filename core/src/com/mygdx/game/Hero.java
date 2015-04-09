@@ -1,19 +1,18 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
 import com.badlogic.gdx.physics.box2d.World;
 
 public class Hero extends GameCharacter implements InputProcessor{
-
+	
 	private Texture sprite;
 	private Animation currentAnimation, standAnimation, jumpAnimation,
 			runAnimation, punchAnimation;
@@ -21,18 +20,13 @@ public class Hero extends GameCharacter implements InputProcessor{
 	private TextureRegion currentFrame;
 	private Direction direction;
 
-	@Override
-	public void init(String spriteName, Vector2 position, World world) {
+
+	public void init(String spriteName, Vector2 position, World world, float scaleFactorX, float scaleFactorY) {
 		// TODO Auto-generated method stub
-		drawRectangle = new Rectangle();
-		super.world = world;
-		super.body = createBody(BodyDef.BodyType.DynamicBody,
-				new Vector2().setZero(), 1f, 1.7f);
+		super.init(position, world, scaleFactorX, scaleFactorY, BodyType.DynamicBody, 1, 1.8f);		
 		createAnimations(spriteName);
 		direction = Direction.Right;
-		currentAnimation = standAnimation;
-		drawRectangle.x = position.x;
-		drawRectangle.y = position.y;
+		currentAnimation = standAnimation;		
 	}
 
 	@Override
@@ -56,12 +50,12 @@ public class Hero extends GameCharacter implements InputProcessor{
 		if (direction == Direction.Right) {
 			spriteBatch.draw(currentFrame,
 					drawRectangle.x + currentFrame.getRegionWidth(),
-					drawRectangle.y, -currentFrame.getRegionWidth(),
-					currentFrame.getRegionHeight());
+					drawRectangle.y, - drawRectangle.getWidth(),
+					drawRectangle.getHeight());
 		} else {
 			spriteBatch.draw(currentFrame, drawRectangle.x, drawRectangle.y,
-					currentFrame.getRegionWidth(),
-					currentFrame.getRegionHeight());
+					drawRectangle.getWidth(),
+					drawRectangle.getHeight());
 		}
 
 	}
@@ -90,9 +84,13 @@ public class Hero extends GameCharacter implements InputProcessor{
 	public boolean keyDown(int keycode) {
 		// TODO Auto-generated method stub
 		switch(keycode){
-		 case Keys.A: body.applyForceToCenter(new Vector2(-5f, 0f), true);		 
+		 case Keys.A: body.applyForceToCenter(new Vector2(-5f, 0f), true);	
+		 currentAnimation = runAnimation;
+		 direction = Direction.Left;
 		 break;
 		 case Keys.D: body.applyForceToCenter(new Vector2(5f, 0f), true);
+		 currentAnimation = runAnimation;
+		 direction = Direction.Right;
 		 break;
 		 case Keys.SPACE: body.applyForceToCenter(new Vector2(0f, 5f), true);
 		 break;	
@@ -104,9 +102,8 @@ public class Hero extends GameCharacter implements InputProcessor{
 	public boolean keyUp(int keycode) {
 		// TODO Auto-generated method stub
 		switch(keycode){
-		 case Keys.A: body.applyForceToCenter(new Vector2(5f, 0f), true);		 
-		 break;
-		 case Keys.D: body.applyForceToCenter(new Vector2(-5f, 0f), true);
+		 case Keys.A: 			 
+		 case Keys.D: body.setLinearVelocity(new Vector2().setZero());
 		 break;
 		 case Keys.CONTROL_LEFT:
 		 case Keys.CONTROL_RIGHT: 
@@ -124,6 +121,8 @@ public class Hero extends GameCharacter implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		// TODO Auto-generated method stub
+		body.applyForceToCenter(new Vector2(5f, 0f), true);
+		
 		return false;
 	}
 

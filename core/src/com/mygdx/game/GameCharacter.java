@@ -18,8 +18,19 @@ public class GameCharacter {
 	public Rectangle drawRectangle;
 	public World world;
 	public Body body;
+	public float scaleFactorX, scaleFactorY;
 
-	public void init(String sprite, Vector2 position, World world) {
+	public void init(Vector2 position, World world, float scaleFactorX,
+			float scaleFactorY, BodyType bodyType, float bodyWidth, float bodyHeight) {
+		this.world = world;
+		this.body = createBody(bodyType,
+				new Vector2().setZero(), bodyWidth, bodyHeight);
+		this.drawRectangle = new Rectangle();
+		this.drawRectangle.x = body.getPosition().x * scaleFactorX;
+		this.drawRectangle.y = body.getPosition().y * scaleFactorY;
+		this.drawRectangle.width = bodyWidth * scaleFactorX;
+		this.drawRectangle.height = bodyHeight * scaleFactorX;
+		this.scaleFactorY = scaleFactorY;
 	}
 
 	public void update(int deltaTime) {

@@ -15,13 +15,16 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor {
 	private float ellapsedGameTime;
 	private Hero myHero;
 	private World world;
+	private float scaleFactorX, scaleFactorY;
 
 	@Override
 	public void create() {
 		spriteBatch = new SpriteBatch();
+		scaleFactorX = Gdx.graphics.getWidth() / 16; 
+		scaleFactorY = Gdx.graphics.getWidth() / 9;
 		world = new World(new Vector2(0f, -9.8f), false);
 		myHero = new Hero();
-		myHero.init("hero_sprites.png", new Vector2(0, 0), world);
+		myHero.init("hero_sprites.png", new Vector2(0, 0), world, scaleFactorX, scaleFactorY);
 		Gdx.input.setInputProcessor(myHero);
 		ellapsedGameTime = 0f;
 	}
