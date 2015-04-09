@@ -29,6 +29,10 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.input.setInputProcessor(this);
 		ellapsedGameTime = 0f;
 	}
+	
+	public void update (float deltaTime) {
+		
+	}
 
 	@Override
 	public void render () {

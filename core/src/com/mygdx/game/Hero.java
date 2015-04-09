@@ -14,7 +14,7 @@ public class Hero extends GameCharacter {
 	private Texture sprite;
 	private Animation currentAnimation,
 			standAnimation, jumpAnimation,
-			runAnimation, kickAnimation;
+			runAnimation, punchAnimation;
 	private TextureRegion[][] regions;
 	private TextureRegion currentFrame;
 	private Direction direction;
@@ -55,7 +55,7 @@ public class Hero extends GameCharacter {
 		}
 		
 	}
-
+	
 	private void createAnimations(String spriteName) {
 		// Load sprite with animation
 		sprite = new Texture(Gdx.files.internal(spriteName));
@@ -73,7 +73,7 @@ public class Hero extends GameCharacter {
 		runAnimation = createAnimation(regions, 2, 6);		
 
 		// Create animation for hero kicking
-		kickAnimation = createAnimation(regions, 3, 5);
+		punchAnimation = createAnimation(regions, 3, 5);
 	}
 
 }
