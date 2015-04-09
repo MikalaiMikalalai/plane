@@ -41,7 +41,8 @@ public class MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void dispose() {
 		myHero.dispose();
-		spriteBatch.dispose();		
+		spriteBatch.dispose();	
+		world.dispose();
 	};
 	
 	@Override
