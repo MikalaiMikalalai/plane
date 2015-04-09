@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -10,7 +12,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.World;
 
-public class Hero extends GameCharacter {
+public class Hero extends GameCharacter implements InputProcessor{
 
 	private Texture sprite;
 	private Animation currentAnimation, standAnimation, jumpAnimation,
@@ -42,6 +44,7 @@ public class Hero extends GameCharacter {
 	@Override
 	public void update(int deltaTime) {
 		// TODO Auto-generated method stub
+		
 		drawRectangle.x = body.getPosition().x;
 		drawRectangle.y = body.getPosition().y;
 	}
@@ -81,6 +84,71 @@ public class Hero extends GameCharacter {
 
 		// Create animation for hero kicking
 		punchAnimation = createAnimation(regions, 3, 5);
+	}
+
+	@Override
+	public boolean keyDown(int keycode) {
+		// TODO Auto-generated method stub
+		switch(keycode){
+		 case Keys.A: body.applyForceToCenter(new Vector2(-5f, 0f), true);		 
+		 break;
+		 case Keys.D: body.applyForceToCenter(new Vector2(5f, 0f), true);
+		 break;
+		 case Keys.SPACE: body.applyForceToCenter(new Vector2(0f, 5f), true);
+		 break;	
+		 }
+		return true;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		// TODO Auto-generated method stub
+		switch(keycode){
+		 case Keys.A: body.applyForceToCenter(new Vector2(5f, 0f), true);		 
+		 break;
+		 case Keys.D: body.applyForceToCenter(new Vector2(-5f, 0f), true);
+		 break;
+		 case Keys.CONTROL_LEFT:
+		 case Keys.CONTROL_RIGHT: 
+		 break;		
+		 }
+		return true;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
